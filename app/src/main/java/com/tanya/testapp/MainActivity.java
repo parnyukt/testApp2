@@ -1,43 +1,80 @@
 package com.tanya.testapp;
 
-import android.net.Uri;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
+    Context mContext;
+    ViewPager mViewPager;
+    TabLayout mTabs;
+//    PagerAdapter mTabsAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
+
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
-        ActionBar actionBar = getSupportActionBar();
+//        mViewPager = (ViewPager) findViewById(R.id.pager);
 
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
+        mTabs = (TabLayout)findViewById(R.id.tabs) ;
+        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.chat_blue).setTag(ChatFragment.class));
+        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.user_male_blue).setTag(UsersFragment.class));
+        mTabs.addTab(mTabs.newTab().setIcon(R.drawable.tag_blue).setTag(NotesFragment.class));
 
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setDisplayShowTitleEnabled(false);
+        mTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, getFragment(tab))
+                    .addToBackStack(null)
+                    .commit();
 
-        ActionBar.Tab tab = actionBar.newTab()
-                .setIcon(R.drawable.chat)
-                .setTabListener(new TabListener<>(
-                        this, "chat", ChatFragment.class));
-        actionBar.addTab(tab);
+            }
 
-        tab = actionBar.newTab()
-                .setIcon(R.drawable.user_male_blue)
-                .setTabListener(new TabListener<>(
-                        this, "contacts", UsersFragment.class));
-        actionBar.addTab(tab);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-        tab = actionBar.newTab()
-                .setIcon(R.drawable.tag_blue)
-                .setTabListener(new TabListener<>(
-                        this, "notes", NotesFragment.class));
-        actionBar.addTab(tab);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_container, getFragment(mTabs.getTabAt(0)))
+                .addToBackStack(null)
+                .commit();;
+
+//        mTabsAdapter = new PagerAdapter(this, mViewPager, mTabs);
+//        mTabsAdapter.addTab(mTabs.newTab().setText("Tab1").setIcon(R.drawable.chat_blue),
+//                ChatFragment.class, null);
+//        mTabsAdapter.addTab(mTabs.newTab().setText("Tab2").setIcon(R.drawable.user_male_blue),
+//                UsersFragment.class, null);
+//        mTabsAdapter.addTab(mTabs.newTab().setText("Tab3").setIcon(R.drawable.tag_blue),
+//                NotesFragment.class, null);
+//
+//        mViewPager.setAdapter(mTabsAdapter);
+//        mTabs.setupWithViewPager(mViewPager);
+//        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabs));
+
     }
+
+    private Fragment getFragment(TabLayout.Tab tab){
+        Class<?> clss = (Class<?>) tab.getTag();
+        return Fragment.instantiate(mContext, clss.getName(), null);
+    }
+
 
 }
