@@ -3,7 +3,11 @@
 
     <string name="app_name">TestAppAdSys2</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="action_new_chat">New chat</string>
+    <string name="action_new_group">New group</string>
+    <string name="action_menu">Menu</string>
+
     <string name="hello_users_fragment">Hello Users fragment</string>
     <string name="hello_notes_fragment">Hello Notes fragment</string>
 

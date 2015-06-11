@@ -6,6 +6,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
     Context mContext;
@@ -69,6 +71,22 @@ public class MainActivity extends AppCompatActivity {
 //        mTabs.setupWithViewPager(mViewPager);
 //        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabs));
 
+
+        Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_bottom);
+        toolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.action_settings:
+                        // TODO
+                        break;
+                    // TODO: Other cases
+                }
+                return true;
+            }
+        });
+        // Inflate a menu to be displayed in the toolbar
+        toolbarBottom.inflateMenu(R.menu.menu_main);
     }
 
     private Fragment getFragment(TabLayout.Tab tab){

@@ -22,5 +22,14 @@
         <!--android:layout_height="match_parent"-->
         <!--android:layout_below="@+id/tabs"/>-->
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_bottom"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="?attr/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:minHeight="?attr/actionBarSize"
+        android:gravity="center_horizontal" />
+
 
 </RelativeLayout>
