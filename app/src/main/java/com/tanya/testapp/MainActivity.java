@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // Inflate a menu to be displayed in the toolbar
-        toolbarBottom.inflateMenu(R.menu.menu_main);
+//        toolbarBottom.inflateMenu(R.menu.menu_main);
     }
 
     private Fragment getFragment(TabLayout.Tab tab){
